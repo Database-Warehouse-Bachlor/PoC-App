@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'quote.dart';
+import 'quote_card.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -34,9 +35,10 @@ class _QuoteListState extends State<QuoteList> {
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: quotes.map((quote) => Text("${quote.text} - ${quote.author}")).toList(),
+        children: quotes.map((quote) => QuoteCard(quote: quote)).toList(),
       ),
     );
   }
 }
+
 
