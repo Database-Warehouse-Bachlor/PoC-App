@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp();
+  runApp(MaterialApp(
+    initialRoute: "/",
+    routes: {
+      "/": (context) => Loading(),
+      "/home": (context) => Home(),
+      "/tennants": (context) => Tennants(),
+      "/log": (context) => Log()
+    },
+  ));
 }
 
