@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   final String url = "api.mocki.io/v1/a50e1e00";
-  List data;
+  List data = [];
 
   @override
   void initState() {
@@ -22,66 +22,110 @@ class _HomeState extends State<Home> {
   }
 
   Future<String> getJsonData() async {
-    var response = await get("http://api.mocki.io/v1/a50e1e00");
+    Response response = await get("http://api.mocki.io/v1/a50e1e00");
 
     print(response.body);
 
     setState(() {
-      var convertDataToJson = jsonDecode(response.body);
-      data = convertDataToJson;
-    });
+      data = jsonDecode(response.body);
 
+      print(data);
+    });
     return "Success";
   }
 
 
+
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: Text("Hente info"),
-      ),
-      body: new ListView.builder(
-        itemCount: data == null ? 0 : data.length,
-        itemBuilder: (BuildContext context, int index) {
-          return new Container(
-            child: new Center(
-              child: new Column(
+    return Scaffold(
+      backgroundColor: Colors.grey[400],
+        appBar: AppBar(
+          title: Text("Home"),
+          backgroundColor: Colors.orange[600],
+        ),
+        body: SafeArea(
+            child: Container(
+              child: Column(
                 children: [
-                  new Card(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                      child: new Container(
-                        child: new Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            new Text(
-                              data[index]["tennant_name"],
-                              style: TextStyle(
-                                fontSize: 20
+                  Row(
+                    children: [
+                      SizedBox(height: 100, width: 10),
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                "Antall Tennants",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 6),
-                            new Text(
-                              data[index]["city"],
-                              style: TextStyle(
-                                fontSize: 20
+                              Text(
+                                "${data.length}",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                ),
                               ),
-                            )
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
+                      SizedBox(height: 100, width: 10),
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                              "Tennant info",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 100, width: 10),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            "Antall Tennants",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                    ],
                   )
                 ],
-                //crossAxisAlignment: CrossAxisAlignment.stretch,
-                //children: data.map((e) => Text("${data[index]["tennant_name"]}")).toList(),
               ),
-            ),
-          );
-        },
+          ),
       ),
     );
   }
 }
+
+
