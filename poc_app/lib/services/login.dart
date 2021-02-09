@@ -87,7 +87,7 @@ class _LoginState extends State<Login> {
                 color: Colors.grey[700]
               ),
               ),
-              SizedBox(height: 70.0),
+              SizedBox(height: 40.0),
               TextField(
                 decoration: InputDecoration(
                   errorText: _unameValidation ? unameErrorText : null,
