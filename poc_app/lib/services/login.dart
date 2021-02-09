@@ -1,4 +1,7 @@
 
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -8,6 +11,59 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  String username = 'admin';
+  String password = 'admin';
+
+  String unameErrorText = 'Username is wrong';
+  String pwdErrorText = 'Password is wrong';
+
+  bool _unameValidation = false;
+  bool _pwdValidation = false;
+
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> authUser() {
+    String unameInput = usernameController.text;
+    String pwdInput = passwordController.text;
+
+    if(!(unameInput == username)) {
+      print('Username is wrong');
+      print('Needed uname: $username');
+      print('Input value: $unameInput');
+    }
+    if(!(pwdInput == password)) {
+      print('Password is wrong');
+      print(pwdInput);
+    }
+    if(unameInput == username && pwdInput == password) {
+        print('Login success!');
+        Navigator.pushNamed(context, '/');
+    }
+  }
+
+  bool validateTextField(String input) {
+    if(input.isEmpty) {
+      setState(() {
+        _unameValidation = true;
+        _pwdValidation = true;
+      });
+    }
+    if(input == username) {
+      setState(() {
+        _unameValidation = false;
+      });
+    }
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +79,10 @@ class _LoginState extends State<Login> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Login', style: TextStyle(
+              Image.asset('assets/Cordel.png',
+              scale: 4),
+              SizedBox(height: 20),
+              Text('Cordel Norge AS', style: TextStyle(
                 fontSize: 30.0,
                 color: Colors.grey[700]
               ),
@@ -31,24 +90,28 @@ class _LoginState extends State<Login> {
               SizedBox(height: 70.0),
               TextField(
                 decoration: InputDecoration(
+                  errorText: _unameValidation ? unameErrorText : null,
                   border: OutlineInputBorder(),
                   labelText: 'Organization number',
                   labelStyle: TextStyle(
                     fontSize: 20.0,
-                    color: Colors.blue
+                    color: Colors.deepOrange
                   ),
                 ),
+                controller: usernameController,
               ),
               SizedBox(height: 50.0),
               TextField(
                 decoration: InputDecoration(
+                  errorText: _pwdValidation ? pwdErrorText : null,
                   border: OutlineInputBorder(),
                   labelText: 'Password',
                   labelStyle: TextStyle(
                     fontSize: 20.0,
-                      color: Colors.blue
+                      color: Colors.deepOrange
                   ),
                 ),
+                controller: passwordController,
                 obscureText: true,
               ),
               SizedBox(height: 30.0),
@@ -56,11 +119,10 @@ class _LoginState extends State<Login> {
                 margin: EdgeInsets.all(25.0),
                 child: SizedBox(width: 200.0,
                   child: RaisedButton(onPressed: () {
-                      SpinKitFadingCircle(
-                        color: Colors.blue,
-                      );
-                   // Navigator.pushReplacementNamed(context, '/');
-                    },
+                    validateTextField(usernameController.text);
+                    validateTextField(passwordController.text);
+                    authUser();
+                  },
                     child: Text('Login',
                     style: TextStyle(fontSize: 20.0,
                     color: Colors.grey[700],
