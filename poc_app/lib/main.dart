@@ -3,7 +3,7 @@ import 'Home.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: "/",
+    initialRoute: "/login",
     routes: {
       "/": (context) => Home()
     },
