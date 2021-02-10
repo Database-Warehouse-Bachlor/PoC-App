@@ -104,11 +104,16 @@ class _HomeState extends State<Home> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Text(
-                            "Antall Tennants",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 20,
+                          child: FlatButton(
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(context, "/login");
+                            },
+                            child: Text(
+                              "LogOut",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
                             ),
                           ),
                         ),

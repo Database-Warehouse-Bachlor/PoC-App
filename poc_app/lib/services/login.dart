@@ -46,7 +46,7 @@ class _LoginState extends State<Login> {
     }
     if(unameInput == username && pwdInput == password) {
         print('Login success!');
-        Navigator.pushNamed(context, '/loading');
+        Navigator.pushReplacementNamed(context, "/loading");
     }
   }
 
