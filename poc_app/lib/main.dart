@@ -6,12 +6,12 @@ import 'package:poc_app/services/login.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: "/login",
+    initialRoute: "/",
     routes: {
-      "/": (context) => Loading(),
+      "/": (context) => Login(),
+      "/loading": (context) => Loading(),
       "/home": (context) => Home(),
       "/tennant_view": (context) => Tennant_View(),
-      "/login": (context) => Login()
     },
   ));
 }

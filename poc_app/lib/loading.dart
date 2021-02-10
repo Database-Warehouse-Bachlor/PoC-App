@@ -10,7 +10,7 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
 
-  final String url = "api.mocki.io/v1/a50e1e00";
+  final String url = "http://api.mocki.io/v1/a50e1e00";
   List data;
 
   @override
@@ -21,7 +21,7 @@ class _LoadingState extends State<Loading> {
   }
 
   Future<String> getJsonData() async {
-    var response = await get("http://api.mocki.io/v1/a50e1e00");
+    var response = await get(url);
 
     print(response.body);
 
