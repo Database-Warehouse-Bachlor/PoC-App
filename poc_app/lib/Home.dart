@@ -24,58 +24,69 @@ class _HomeState extends State<Home> {
 
     return new Scaffold(
       appBar: new AppBar(
-        title: Text("Hente info"),
+        title: Text("Home"),
+        backgroundColor: Colors.orange[800],
+        centerTitle: true,
       ),
-      body: new ListView.builder(
-        itemCount: 1,
-        itemBuilder: (BuildContext context, int itemCount) {
-          return new Container(
+      body: SafeArea(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey[400],
+            ),
             child: new Center(
               child: new Column(
                 children: [
                   Row(
                     children: [
-                      SizedBox(height: 100, width: 10),
+                      SizedBox(height: 130, width: 10),
                       Expanded(
                         child: Container(
+                          height: 90,
                           padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Antall Tennants",
+                                "Antall Tennants registrert",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                 ),
                               ),
+                              SizedBox(height: 4),
                               Text(
                                 "${data.length}",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 22,
                                 ),
                               ),
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: 100, width: 10),
+                      SizedBox(height: 130, width: 10),
                       Expanded(
                         child: Container(
-                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                          decoration: BoxDecoration(
+                          height: 100,
+                          padding: EdgeInsets.fromLTRB(5, 5, 3, 5),
+                          child: FlatButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            "Tennant info",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 20,
+                            onPressed: () {
+                              Navigator.pushNamed(context, "/tennant_view", arguments: data);
+                            },
+                            child: Text(
+                                "Tennant info",
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
                             ),
                           ),
                         ),
@@ -105,27 +116,10 @@ class _HomeState extends State<Home> {
                       SizedBox(width: 10),
                     ],
                   ),
-                  FlatButton.icon(
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/tennant_view", arguments: data);
-                      },
-                    icon: Icon(
-                      Icons.edit_location,
-                      color: Colors.grey[300],
-                    ),
-                    label: Text(
-                      "Gå videre",
-                      style: TextStyle(
-                        color: Colors.grey[300],
-                      ),
-                    ),
-
-                  ),
                 ],
               ),
             ),
-          );
-        },
+          ),
       ),
     );
   }
