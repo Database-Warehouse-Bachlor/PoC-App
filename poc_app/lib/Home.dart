@@ -27,8 +27,8 @@ class _HomeState extends State<Home> {
         title: Text("Hente info"),
       ),
       body: new ListView.builder(
-        itemCount: data == null ? 0 : data.length,
-        itemBuilder: (BuildContext context, int index) {
+        itemCount: 1,
+        itemBuilder: (BuildContext context, int itemCount) {
           return new Container(
             child: new Center(
               child: new Column(
@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
-                              "Tennant info",
+                            "Tennant info",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 20,
@@ -104,10 +104,28 @@ class _HomeState extends State<Home> {
                       ),
                       SizedBox(width: 10),
                     ],
-                  )
+                  ),
+                  FlatButton.icon(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/tennant_view", arguments: data);
+                      },
+                    icon: Icon(
+                      Icons.edit_location,
+                      color: Colors.grey[300],
+                    ),
+                    label: Text(
+                      "Gå videre",
+                      style: TextStyle(
+                        color: Colors.grey[300],
+                      ),
+                    ),
+
+                  ),
                 ],
               ),
-          ),
+            ),
+          );
+        },
       ),
     );
   }

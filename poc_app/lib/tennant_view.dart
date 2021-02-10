@@ -11,32 +11,17 @@ class Tennant_View extends StatefulWidget {
 
 class _Tennant_ViewState extends State<Tennant_View> {
 
-  final String url = "api.mocki.io/v1/a50e1e00";
   List data;
 
-  @override
-  void initState() {
-    super.initState();
-    print(url);
-    this.getJsonData();
-  }
-
-  Future<String> getJsonData() async {
-    Response response = await get("http://api.mocki.io/v1/a50e1e00");
-
-    print(response.body);
-
-    setState(() {
-      data = jsonDecode(response.body);
-
-      print(data.length);
-    });
-    return "Success";
-  }
 
 
   @override
   Widget build(BuildContext context) {
+
+    data = ModalRoute.of(context).settings.arguments;
+
+    print("Kult ass");
+
     return new Scaffold(
       appBar: new AppBar(
         title: Text("Hente info"),

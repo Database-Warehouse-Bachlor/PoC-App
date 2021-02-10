@@ -29,7 +29,7 @@ class _LoadingState extends State<Loading> {
       var convertDataToJson = jsonDecode(response.body);
       data = convertDataToJson;
 
-      Navigator.pushReplacementNamed(context, "/login", arguments: data);
+      Navigator.pushReplacementNamed(context, "/home", arguments: data);
 
     });
   }
