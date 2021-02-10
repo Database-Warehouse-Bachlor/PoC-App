@@ -23,8 +23,6 @@ class _LoadingState extends State<Loading> {
   Future<String> getJsonData() async {
     var response = await get(url);
 
-    print(response.body);
-
     setState(() {
       var convertDataToJson = jsonDecode(response.body);
       data = convertDataToJson;

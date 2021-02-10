@@ -13,26 +13,31 @@ class _HomeState extends State<Home> {
 
 
   List data;
-  List missingDataTennatns;
+
+  Color color = Colors.green;
+
 
   String missingDataInfo = "Alle data er registrert som forventet!";
 
 
   @override
   Widget build(BuildContext context) {
-    
+
+    List<dynamic> missingDataTennatns = [];
     data = ModalRoute.of(context).settings.arguments;
 
     for(Map tennant in data) {
-      if(tennant["missing_data"] == "true") {
-        print(tennant);
+      if (tennant["missing_data"] == "true") {
         missingDataTennatns.add(tennant);
         print(missingDataTennatns);
+
+        missingDataInfo = "Det er registrert ${missingDataTennatns.length} tennants som mangler data";
+        color = Colors.red;
+
       }
     }
     print(missingDataTennatns);
 
-    print(data);
 
     return new Scaffold(
       appBar: new AppBar(
@@ -104,7 +109,7 @@ class _HomeState extends State<Home> {
                       SizedBox(height: 130, width: 10),
                       Expanded(
                         child: Container(
-                          height: 100,
+                          height: 110,
                           padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                           child: FlatButton(
                             shape: RoundedRectangleBorder(
@@ -112,7 +117,7 @@ class _HomeState extends State<Home> {
                             ),
                             color: Colors.white,
                             onPressed: () {
-                              Navigator.pushNamed(context, "/home/tennant_view", arguments: data);
+                              Navigator.pushNamed(context, "/home/tennant_view", arguments: missingDataTennatns);
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -124,12 +129,12 @@ class _HomeState extends State<Home> {
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
-                                SizedBox(height: 8),
+                                SizedBox(height: 6),
                                 Text(
                                   "$missingDataInfo",
                                   style: TextStyle(
                                     fontSize: 20,
-                                    color: Colors.green[800]
+                                    color: color,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
