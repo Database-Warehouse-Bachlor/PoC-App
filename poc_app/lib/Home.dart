@@ -11,42 +11,27 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  final String url = "api.mocki.io/v1/a50e1e00";
-  List data = [];
 
-  @override
-  void initState() {
-    super.initState();
-    print(url);
-    this.getJsonData();
-  }
-
-  Future<String> getJsonData() async {
-    Response response = await get("http://api.mocki.io/v1/a50e1e00");
-
-    print(response.body);
-
-    setState(() {
-      data = jsonDecode(response.body);
-
-      print(data);
-    });
-    return "Success";
-  }
-
+  List data;
 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[400],
-        appBar: AppBar(
-          title: Text("Home"),
-          backgroundColor: Colors.orange[600],
-        ),
-        body: SafeArea(
-            child: Container(
-              child: Column(
+
+    data = ModalRoute.of(context).settings.arguments;
+
+    print(data);
+
+    return new Scaffold(
+      appBar: new AppBar(
+        title: Text("Hente info"),
+      ),
+      body: new ListView.builder(
+        itemCount: data == null ? 0 : data.length,
+        itemBuilder: (BuildContext context, int index) {
+          return new Container(
+            child: new Center(
+              child: new Column(
                 children: [
                   Row(
                     children: [
