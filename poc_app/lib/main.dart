@@ -11,7 +11,7 @@ void main() {
       "/login": (context) => Login(),
       "/loading": (context) => Loading(),
       "/home": (context) => Home(),
-      "/tennant_view": (context) => Tennant_View(),
+      "/home/tennant_view": (context) => Tennant_View(),
     },
   ));
 }

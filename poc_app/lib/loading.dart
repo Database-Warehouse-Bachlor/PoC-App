@@ -10,7 +10,7 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
 
-  final String url = "http://api.mocki.io/v1/a50e1e00";
+  final String url = "http://api.mocki.io/v1/314dc3b8";
   List data;
 
   @override

@@ -24,46 +24,68 @@ class _Tennant_ViewState extends State<Tennant_View> {
 
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: Colors.orange[800],
         title: Text("Hente info"),
       ),
-      body: new ListView.builder(
-        itemCount: data == null ? 0 : data.length,
-        itemBuilder: (BuildContext context, int index) {
-          return new Container(
+      body: Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[400]),
+        child: new ListView.builder(
+          itemCount: data == null ? 0 : data.length,
+          itemBuilder: (BuildContext context, int index) {
+            return new Container(
+              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
             child: new Center(
-              child: new Column(
-                children: [
-                  new Card(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                      child: new Container(
-                        child: new Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            new Text(
-                              data[index]["tennant_name"],
-                              style: TextStyle(
-                                  fontSize: 20
+                child: new Column(
+                  children: [
+                    SizedBox(height: 5),
+                    new Card(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                        child: new Container(
+                          child: new Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              new Text(
+                                data[index]["tennant_name"],
+                                style: TextStyle(
+                                    fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 6),
-                            new Text(
-                              data[index]["city"],
-                              style: TextStyle(
-                                  fontSize: 20
+                              SizedBox(height: 6),
+                              new Text(
+                                data[index]["address"],
+                                style: TextStyle(
+                                    fontSize: 20
+                                ),
                               ),
-                            ),
-                          ],
+                              SizedBox(height: 6),
+                              new Text(
+                                data[index]["zipcode"],
+                                style: TextStyle(
+                                    fontSize: 20
+                                ),
+                              ),
+                              SizedBox(height: 6),
+                              new Text(
+                                data[index]["city"],
+                                style: TextStyle(
+                                    fontSize: 20
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
