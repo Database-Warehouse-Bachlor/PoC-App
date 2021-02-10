@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
   }
 
   Future<String> getJsonData() async {
-    var response = await get("http://api.mocki.io/v1/a50e1e00");
+    Response response = await get("http://api.mocki.io/v1/a50e1e00");
 
     print(response.body);
 
