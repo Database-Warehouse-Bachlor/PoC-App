@@ -62,6 +62,16 @@ class _LoginState extends State<Login> {
         _unameValidation = false;
       });
     }
+    if(input == password) {
+      setState(() {
+        _pwdValidation = false;
+      });
+    }
+    if(!(input == username)) {
+      setState(() {
+        _unameValidation = true;
+      });
+    }
     return true;
   }
 
@@ -71,6 +81,7 @@ class _LoginState extends State<Login> {
       appBar: AppBar(
        title: Text("Login to this cool app.",
        ),
+        backgroundColor: Colors.orange[800],
         centerTitle: true,
     ),
       body: Padding(
