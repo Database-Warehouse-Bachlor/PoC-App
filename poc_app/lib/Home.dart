@@ -16,7 +16,6 @@ class _HomeState extends State<Home> {
 
   Color color = Colors.green;
 
-
   String missingDataInfo = "Alle data er registrert som forventet!";
 
 
@@ -29,15 +28,10 @@ class _HomeState extends State<Home> {
     for(Map tennant in data) {
       if (tennant["missing_data"] == "true") {
         missingDataTennatns.add(tennant);
-        print(missingDataTennatns);
-
         missingDataInfo = "Det er registrert ${missingDataTennatns.length} tennants som mangler data";
         color = Colors.red;
-
       }
     }
-    print(missingDataTennatns);
-
 
     return new Scaffold(
       appBar: new AppBar(
@@ -89,7 +83,7 @@ class _HomeState extends State<Home> {
                             ),
                             color: Colors.white,
                             onPressed: () {
-                              Navigator.pushNamed(context, "/home/tennant_view", arguments: data);
+                              Navigator.pushNamed(context, "/log", arguments: missingDataTennatns);
                             },
                             child: Text(
                                 "Log",

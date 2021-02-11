@@ -4,16 +4,14 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:intl/intl.dart';
 
-class Tennant_View extends StatefulWidget {
+class Log extends StatefulWidget {
   @override
-  _Tennant_ViewState createState() => _Tennant_ViewState();
+  LogState createState() => LogState();
 }
 
-class _Tennant_ViewState extends State<Tennant_View> {
+class LogState extends State<Log> {
 
   List data;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +24,14 @@ class _Tennant_ViewState extends State<Tennant_View> {
         title: Text("Hente info"),
       ),
       body: Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[400]),
+        decoration: BoxDecoration(
+            color: Colors.grey[400]),
         child: new ListView.builder(
           itemCount: data == null ? 0 : data.length,
           itemBuilder: (BuildContext context, int index) {
             return new Container(
               padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-            child: new Center(
+              child: new Center(
                 child: new Column(
                   children: [
                     SizedBox(height: 5),
@@ -48,27 +46,13 @@ class _Tennant_ViewState extends State<Tennant_View> {
                               new Text(
                                 data[index]["tennant_name"],
                                 style: TextStyle(
-                                    fontSize: 24,
+                                  fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               SizedBox(height: 6),
                               new Text(
-                                data[index]["address"],
-                                style: TextStyle(
-                                    fontSize: 20
-                                ),
-                              ),
-                              SizedBox(height: 6),
-                              new Text(
-                                data[index]["zipcode"],
-                                style: TextStyle(
-                                    fontSize: 20
-                                ),
-                              ),
-                              SizedBox(height: 6),
-                              new Text(
-                                data[index]["city"],
+                                data[index]["error_log"],
                                 style: TextStyle(
                                     fontSize: 20
                                 ),
