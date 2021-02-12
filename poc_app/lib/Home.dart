@@ -14,13 +14,24 @@ class _HomeState extends State<Home> {
 
   List data;
 
+  Color color = Colors.green;
+
+  String missingDataInfo = "Alle data er registrert som forventet!";
+
 
   @override
   Widget build(BuildContext context) {
 
+    List<dynamic> missingDataTennatns = [];
     data = ModalRoute.of(context).settings.arguments;
 
-    print(data);
+    for(Map tennant in data) {
+      if (tennant["missing_data"] == "true") {
+        missingDataTennatns.add(tennant);
+        missingDataInfo = "Det er registrert ${missingDataTennatns.length} tennants som mangler data";
+        color = Colors.red;
+      }
+    }
 
     return new Scaffold(
       appBar: new AppBar(
@@ -41,37 +52,6 @@ class _HomeState extends State<Home> {
                       SizedBox(height: 130, width: 10),
                       Expanded(
                         child: Container(
-                          height: 90,
-                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Antall Tennants registrert",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                "${data.length}",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 22,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 130, width: 10),
-                      Expanded(
-                        child: Container(
                           height: 100,
                           padding: EdgeInsets.fromLTRB(5, 5, 3, 5),
                           child: FlatButton(
@@ -80,13 +60,37 @@ class _HomeState extends State<Home> {
                             ),
                             color: Colors.white,
                             onPressed: () {
-                              Navigator.pushNamed(context, "/tennant_view", arguments: data);
+                              Navigator.pushNamed(context, "/home/tennant_view", arguments: data);
                             },
                             child: Text(
-                                "Tennant info",
+                              "Antall Tennants ${data.length}",
                               style: TextStyle(
                                 fontSize: 20,
                               ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 130, width: 10),
+                      Expanded(
+                        child: Container(
+                          height: 100,
+                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          child: FlatButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            color: Colors.white,
+                            onPressed: () {
+                              Navigator.pushNamed(context, "/log", arguments: missingDataTennatns);
+                            },
+                            child: Text(
+                                "Log",
+                              style: TextStyle(
+                                fontSize: 30,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
@@ -96,10 +100,53 @@ class _HomeState extends State<Home> {
                   ),
                   Row(
                     children: [
-                      SizedBox(width: 10),
+                      SizedBox(height: 130, width: 10),
                       Expanded(
                         child: Container(
-                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                          height: 110,
+                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          child: FlatButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            color: Colors.white,
+                            onPressed: () {
+                              Navigator.pushNamed(context, "/home/tennant_view", arguments: missingDataTennatns);
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Manglende data",
+                                  style: TextStyle(
+                                    fontSize: 23,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(height: 6),
+                                Text(
+                                  "$missingDataInfo",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: color,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 130, width: 10),
+                    ],
+                  ),
+
+                  Row(
+                    children: [
+                      SizedBox(height: 100, width: 10),
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12),

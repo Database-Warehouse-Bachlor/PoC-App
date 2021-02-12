@@ -10,20 +10,18 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
 
-  final String url = "http://api.mocki.io/v1/a50e1e00";
+  final String missingUrl = "http://api.mocki.io/v1/314dc3b8";
+  final String normalUrl = "http://api.mocki.io/v1/e5d8d2b4";
   List data;
 
   @override
   void initState() {
     super.initState();
-    print(url);
     this.getJsonData();
   }
 
   Future<String> getJsonData() async {
-    var response = await get(url);
-
-    print(response.body);
+    var response = await get(normalUrl);
 
     setState(() {
       var convertDataToJson = jsonDecode(response.body);

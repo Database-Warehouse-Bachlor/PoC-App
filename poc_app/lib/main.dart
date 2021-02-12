@@ -3,6 +3,7 @@ import 'package:poc_app/loading.dart';
 import 'package:poc_app/tennant_view.dart';
 import 'Home.dart';
 import 'package:poc_app/services/login.dart';
+import 'package:poc_app/log.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -10,8 +11,9 @@ void main() {
     routes: {
       "/login": (context) => Login(),
       "/loading": (context) => Loading(),
+      "/log": (context) => Log(),
       "/home": (context) => Home(),
-      "/tennant_view": (context) => Tennant_View(),
+      "/home/tennant_view": (context) => Tennant_View(),
     },
   ));
 }
