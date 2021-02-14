@@ -3,7 +3,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:http/http.dart';
+import 'package:poc_app/Client.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -12,67 +13,38 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
 
-  String username = 'admin';
-  String password = 'admin';
-
   String unameErrorText = 'Username is wrong';
   String pwdErrorText = 'Password is wrong';
 
-  bool _unameValidation = false;
-  bool _pwdValidation = false;
-
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+  final username = TextEditingController();
+  final password = TextEditingController();
 
   @override
   void dispose() {
-    usernameController.dispose();
-    passwordController.dispose();
+    username.dispose();
+    password.dispose();
     super.dispose();
   }
 
-  Future<void> authUser() {
-    String unameInput = usernameController.text;
-    String pwdInput = passwordController.text;
+  Future<String> authUser() async {
 
-    if(!(unameInput == username)) {
-      print('Username is wrong');
-      print('Needed uname: $username');
-      print('Input value: $unameInput');
-    }
-    if(!(pwdInput == password)) {
-      print('Password is wrong');
-      print(pwdInput);
-    }
-    if(unameInput == username && pwdInput == password) {
-        print('Login success!');
-        Navigator.pushReplacementNamed(context, "/loading");
-    }
-  }
+    String uname = username.text.toString();
+    String pwd = password.text.toString();
 
-  bool validateTextField(String input) {
-    if(input.isEmpty) {
-      setState(() {
-        _unameValidation = true;
-        _pwdValidation = true;
-      });
+    ApiClient client = new ApiClient();
+    print(username);
+    print(password);
+    String url = "http://10.0.2.2:5000/api/commands/login?username=$uname&password=$pwd";
+    print(url);
+    String response = await client.getClient(url);
+    print(response);
+
+    if(response == "1") {
+      print("Success");
+      Navigator.pushReplacementNamed(context, "/loading");
+    } else {
+      print("Login failed");
     }
-    if(input == username) {
-      setState(() {
-        _unameValidation = false;
-      });
-    }
-    if(input == password) {
-      setState(() {
-        _pwdValidation = false;
-      });
-    }
-    if(!(input == username)) {
-      setState(() {
-        _unameValidation = true;
-      });
-    }
-    return true;
   }
 
   @override
@@ -101,7 +73,6 @@ class _LoginState extends State<Login> {
               SizedBox(height: 40.0),
               TextField(
                 decoration: InputDecoration(
-                  errorText: _unameValidation ? unameErrorText : null,
                   border: OutlineInputBorder(),
                   labelText: 'Organization number',
                   labelStyle: TextStyle(
@@ -109,12 +80,11 @@ class _LoginState extends State<Login> {
                     color: Colors.deepOrange
                   ),
                 ),
-                controller: usernameController,
+                controller: username,
               ),
               SizedBox(height: 50.0),
               TextField(
                 decoration: InputDecoration(
-                  errorText: _pwdValidation ? pwdErrorText : null,
                   border: OutlineInputBorder(),
                   labelText: 'Password',
                   labelStyle: TextStyle(
@@ -122,7 +92,7 @@ class _LoginState extends State<Login> {
                       color: Colors.deepOrange
                   ),
                 ),
-                controller: passwordController,
+                controller: password,
                 obscureText: true,
               ),
               SizedBox(height: 30.0),
@@ -130,8 +100,6 @@ class _LoginState extends State<Login> {
                 margin: EdgeInsets.all(25.0),
                 child: SizedBox(width: 200.0,
                   child: RaisedButton(onPressed: () {
-                    validateTextField(usernameController.text);
-                    validateTextField(passwordController.text);
                     authUser();
                   },
                     child: Text('Login',
